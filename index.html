@@ -128,7 +128,16 @@
         
             var Blog = firebase.database().ref('Entry').orderByChild('updatedAt').limitToLast(4);
         
+            function showLoading() {
+                document.getElementById('loading').style.display = 'block';
+            }
+        
+            function hideLoading() {
+                document.getElementById('loading').style.display = 'none';
+            }
+        
             Blog.on('value', function (snapshot) {
+                showLoading();
                 var entriesList = document.getElementById('entries');
                 entriesList.innerHTML = '';
         
@@ -158,6 +167,7 @@
                     colDiv.innerHTML = serviceItem;
                     entriesList.appendChild(colDiv);
                 });
+                hideLoading();
             });
         
             function viewAllEntries() {
@@ -165,43 +175,42 @@
                 window.location.href = 'view_all_entries.html';
             }
         
-            
-    function showPopup(entryKey) {
-        var popupKegiatan = document.getElementById('popup-kegiatan');
-        var popupDetails = document.getElementById('popup-details');
-        var popup = document.getElementById('popup');
-
-        var entryRef = firebase.database().ref('Entry/' + entryKey);
-        entryRef.once('value', function(snapshot) {
-            var entry = snapshot.val();
-            popupKegiatan.innerText = entry.kegiatan;
-
-            var detailsHTML = 
-                '<img src="' + entry.content + '" class="img-fluid rounded-top w-100" alt="Gambar Kegiatan">' +
-                
-                '<p><strong>Jenis Kegiatan:</strong> ' + entry.jenis_kegiatan + '</p>' +
-                '<p><strong>Tipe Kegiatan:</strong> ' + entry.tipe_kegiatan + '</p>' +
-                '<p><strong>Tanggal Kegiatan:</strong> ' + entry.tanggal_kegiatan + '</p>' +
-                '<p><strong>Waktu Kegiatan:</strong> ' + entry.waktu_kegiatan + '</p>' +
-                '<p><strong>Deskripsi:</strong> ' + entry.deskripsi + '</p>' +
-                '<p><strong>Lokasi Kegiatan:</strong> ' + entry.lokasi_kegiatan + '</p>';
-
-            popupDetails.innerHTML = detailsHTML;
-
-            popup.classList.add('show');
-        });
-    }
-
-    function hidePopup() {
-        var popup = document.getElementById('popup');
-        popup.classList.remove('show');
-    }
+            function showPopup(entryKey) {
+                var popupKegiatan = document.getElementById('popup-kegiatan');
+                var popupDetails = document.getElementById('popup-details');
+                var popup = document.getElementById('popup');
+        
+                var entryRef = firebase.database().ref('Entry/' + entryKey);
+                entryRef.once('value', function(snapshot) {
+                    var entry = snapshot.val();
+                    popupKegiatan.innerText = entry.kegiatan;
+        
+                    var detailsHTML = 
+                        '<img src="' + entry.content + '" class="img-fluid rounded-top w-100" alt="Gambar Kegiatan">' +
+                        
+                        '<p><strong>Jenis Kegiatan:</strong> ' + entry.jenis_kegiatan + '</p>' +
+                        '<p><strong>Tipe Kegiatan:</strong> ' + entry.tipe_kegiatan + '</p>' +
+                        '<p><strong>Tanggal Kegiatan:</strong> ' + entry.tanggal_kegiatan + '</p>' +
+                        '<p><strong>Waktu Kegiatan:</strong> ' + entry.waktu_kegiatan + '</p>' +
+                        '<p><strong>Deskripsi:</strong> ' + entry.deskripsi + '</p>' +
+                        '<p><strong>Lokasi Kegiatan:</strong> ' + entry.lokasi_kegiatan + '</p>';
+        
+                    popupDetails.innerHTML = detailsHTML;
+        
+                    popup.classList.add('show');
+                });
+            }
+        
+            function hidePopup() {
+                var popup = document.getElementById('popup');
+                popup.classList.remove('show');
+            }
         </script>
+        
         <div class="container">
             <h1 class="text-center">Kegiatan Yang Akan Datang</h1>
+            <div id="loading" class="loading-circle" style="display: none;"></div>
             <div id="entries" class="row">
-                <br>
-                <br>
                 <!-- Entries will be injected here -->
             </div>
             <div class="btn-view-all text-center mt-4">
@@ -218,8 +227,6 @@
                 <div id="popup-details" class="popup-details"></div>
             </div>
         </div>
-        
-        
         <!-- Services End -->
 
 
