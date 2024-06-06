@@ -114,109 +114,21 @@
 
 
         <!-- Services Start -->
-        <script>
-            // Firebase config
-            var config = {
-                apiKey: "AIzaSyB6qerNsyshgEjQlpTn5QOW_tCfpah7fIo",
-                authDomain: "itikaf-63482.firebaseapp.com",
-                databaseURL: "https://itikaf-63482-default-rtdb.firebaseio.com",
-                storageBucket: "",
-            };
-            firebase.initializeApp(config);
-        
-            /////////////////////////////////////
-        
-            var blogRef = firebase.database().ref('Entry').orderByChild('updatedAt').limitToLast(4);
-        
-            function showLoading() {
-                document.getElementById('loading').style.display = 'block';
-            }
-        
-            function hideLoading() {
-                document.getElementById('loading').style.display = 'none';
-            }
-        
-            function createEntryHTML(entry, entryKey) {
-                return `
-                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="container-fluid service py-6">
-                            <div class="container py-6">
-                                <div class="section-title mb-5 wow fadeInUp" data-wow-delay="0.2s">
-                                    <div class="service-item rounded">
-                                        <div class="service-img rounded-top">
-                                            <img src="${entry.content}" class="img-fluid rounded-top w-100" alt="">
-                                        </div>
-                                        <div class="service-content rounded-bottom bg-light p-4">
-                                            <div class="service-content-inner">
-                                                <h5 class="mb-2 kegiatan">${entry.kegiatan}</h5>
-                                                <p class="mb-4">Tanggal: ${entry.tanggal_kegiatan}<br>Waktu: ${entry.waktu_kegiatan}</p>
-                                                <button class="btn btn-primary rounded-pill btn-sm text-white py-1 px-3 mb-0" onclick="showPopup('${entryKey}')">Selengkapnya</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`;
-            }
-        
-            function updateEntries(snapshot) {
-                showLoading();
-                var entriesList = document.getElementById('entries');
-                entriesList.innerHTML = '';
-        
-                snapshot.forEach(function (childSnapshot) {
-                    var entry = childSnapshot.val();
-                    var entryKey = childSnapshot.key;
-                    entriesList.insertAdjacentHTML('beforeend', createEntryHTML(entry, entryKey));
-                });
-        
-                hideLoading();
-            }
-        
-            blogRef.on('value', updateEntries);
-        
-            function viewAllEntries() {
-                window.location.href = 'view_all_entries.html';
-            }
-        
-            function showPopup(entryKey) {
-                var popup = document.getElementById('popup');
-                var entryRef = firebase.database().ref('Entry/' + entryKey);
-        
-                entryRef.once('value', function(snapshot) {
-                    var entry = snapshot.val();
-                    document.getElementById('popup-kegiatan').innerText = entry.kegiatan;
-        
-                    document.getElementById('popup-details').innerHTML = `
-                        <img src="${entry.content}" class="img-fluid rounded-top w-100" alt="Gambar Kegiatan">
-                        <p><strong>Jenis Kegiatan:</strong> ${entry.jenis_kegiatan}</p>
-                        <p><strong>Tipe Kegiatan:</strong> ${entry.tipe_kegiatan}</p>
-                        <p><strong>Tanggal Kegiatan:</strong> ${entry.tanggal_kegiatan}</p>
-                        <p><strong>Waktu Kegiatan:</strong> ${entry.waktu_kegiatan}</p>
-                        <p><strong>Deskripsi:</strong> ${entry.deskripsi}</p>
-                        <p><strong>Lokasi Kegiatan:</strong> ${entry.lokasi_kegiatan}</p>`;
-        
-                    popup.classList.add('show');
-                });
-            }
-        
-            function hidePopup() {
-                document.getElementById('popup').classList.remove('show');
-            }
-        </script>
-        
         <div class="container">
             <h1 class="text-center">Kegiatan Yang Akan Datang</h1>
-            <div id="loading" class="loading-circle" style="display: none;"></div>
-            <div id="entries" class="row">
+            <div id="loading" class="loading-circle" style="display: none;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <div id="entries" class="grid-container">
                 <!-- Entries will be injected here -->
             </div>
             <div class="btn-view-all text-center mt-4">
                 <button class="btn btn-primary" onclick="viewAllEntries()">Lihat Semua Kegiatan</button>
             </div>
         </div>
-        
+    
         <div id="popup" class="popup">
             <div class="popup-content">
                 <div class="popup-header">
@@ -226,6 +138,89 @@
                 <div id="popup-details" class="popup-details"></div>
             </div>
         </div>
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+    <script>
+        // Firebase config
+        var config = {
+            apiKey: "AIzaSyB6qerNsyshgEjQlpTn5QOW_tCfpah7fIo",
+            authDomain: "itikaf-63482.firebaseapp.com",
+            databaseURL: "https://itikaf-63482-default-rtdb.firebaseio.com",
+            storageBucket: "",
+        };
+        firebase.initializeApp(config);
+
+        var blogRef = firebase.database().ref('Entry').orderByChild('updatedAt').limitToLast(4);
+
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function createEntryHTML(entry, entryKey) {
+            return `
+                <div class="service-item rounded">
+                    <div class="service-img rounded-top">
+                        <img src="${entry.content}" class="img-fluid rounded-top w-100" alt="">
+                    </div>
+                    <div class="service-content rounded-bottom bg-light p-4">
+                        <div class="service-content-inner">
+                            <h5 class="mb-2 kegiatan">${entry.kegiatan}</h5>
+                            <p class="mb-4">Tanggal: ${entry.tanggal_kegiatan}<br>Waktu: ${entry.waktu_kegiatan}</p>
+                            <button class="btn btn-primary rounded-pill btn-sm text-white py-1 px-3 mb-0" onclick="showPopup('${entryKey}')">Selengkapnya</button>
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        function updateEntries(snapshot) {
+            showLoading();
+            var entriesList = document.getElementById('entries');
+            entriesList.innerHTML = '';
+
+            snapshot.forEach(function (childSnapshot) {
+                var entry = childSnapshot.val();
+                var entryKey = childSnapshot.key;
+                entriesList.insertAdjacentHTML('beforeend', createEntryHTML(entry, entryKey));
+            });
+
+            hideLoading();
+        }
+
+        blogRef.on('value', updateEntries);
+
+        function viewAllEntries() {
+            window.location.href = 'view_all_entries.html';
+        }
+
+        function showPopup(entryKey) {
+            var popup = document.getElementById('popup');
+            var entryRef = firebase.database().ref('Entry/' + entryKey);
+
+            entryRef.once('value', function(snapshot) {
+                var entry = snapshot.val();
+                document.getElementById('popup-kegiatan').innerText = entry.kegiatan;
+
+                document.getElementById('popup-details').innerHTML = `
+                    <img src="${entry.content}" class="img-fluid rounded-top w-100" alt="Gambar Kegiatan">
+                    <p><strong>Jenis Kegiatan:</strong> ${entry.jenis_kegiatan}</p>
+                    <p><strong>Tipe Kegiatan:</strong> ${entry.tipe_kegiatan}</p>
+                    <p><strong>Tanggal Kegiatan:</strong> ${entry.tanggal_kegiatan}</p>
+                    <p><strong>Waktu Kegiatan:</strong> ${entry.waktu_kegiatan}</p>
+                    <p><strong>Deskripsi:</strong> ${entry.deskripsi}</p>
+                    <p><strong>Lokasi Kegiatan:</strong> ${entry.lokasi_kegiatan}</p>`;
+
+                popup.classList.add('show');
+            });
+        }
+
+        function hidePopup() {
+            document.getElementById('popup').classList.remove('show');
+        }
+    </script>
         <!-- Services End -->
         
 

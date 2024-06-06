@@ -1,5 +1,10 @@
 
 /*** Spinner Start ***/
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
 .loading-circle {
     border: 16px solid #f3f3f3;
     border-top: 16px solid blue;
