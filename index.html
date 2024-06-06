@@ -126,7 +126,7 @@
         
             /////////////////////////////////////
         
-            var Blog = firebase.database().ref('Entry').orderByChild('updatedAt').limitToLast(4);
+            var blogRef = firebase.database().ref('Entry').orderByChild('updatedAt').limitToLast(4);
         
             function showLoading() {
                 document.getElementById('loading').style.display = 'block';
@@ -136,74 +136,73 @@
                 document.getElementById('loading').style.display = 'none';
             }
         
-            Blog.on('value', function (snapshot) {
+            function createEntryHTML(entry, entryKey) {
+                return `
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="container-fluid service py-6">
+                            <div class="container py-6">
+                                <div class="section-title mb-5 wow fadeInUp" data-wow-delay="0.2s">
+                                    <div class="service-item rounded">
+                                        <div class="service-img rounded-top">
+                                            <img src="${entry.content}" class="img-fluid rounded-top w-100" alt="">
+                                        </div>
+                                        <div class="service-content rounded-bottom bg-light p-4">
+                                            <div class="service-content-inner">
+                                                <h5 class="mb-2 kegiatan">${entry.kegiatan}</h5>
+                                                <p class="mb-4">Tanggal: ${entry.tanggal_kegiatan}<br>Waktu: ${entry.waktu_kegiatan}</p>
+                                                <button class="btn btn-primary rounded-pill btn-sm text-white py-1 px-3 mb-0" onclick="showPopup('${entryKey}')">Selengkapnya</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            }
+        
+            function updateEntries(snapshot) {
                 showLoading();
                 var entriesList = document.getElementById('entries');
                 entriesList.innerHTML = '';
         
                 snapshot.forEach(function (childSnapshot) {
                     var entry = childSnapshot.val();
-                    var colDiv = document.createElement('div');
-                    colDiv.className = 'col-md-6 col-lg-4 col-xl-3 wow fadeInUp';
-                    colDiv.setAttribute('data-wow-delay', '0.3s');
-        
-                    var serviceItem = `
-                        <div class="container-fluid service py-6">
-                        <div class="container py-6">
-                        <div class="section-title mb-5 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="service-item rounded">
-                            <div class="service-img rounded-top">
-                                <img src="${entry.content}" class="img-fluid rounded-top w-100" alt="">
-                            </div>
-                            <div class="service-content rounded-bottom bg-light p-4">
-                                <div class="service-content-inner">
-                                    <h5 class="mb-2 kegiatan">${entry.kegiatan}</h5>
-                                    <p class="mb-4">Tanggal: ${entry.tanggal_kegiatan}<br>Waktu: ${entry.waktu_kegiatan}</p>
-                                    <button class="btn btn-primary rounded-pill btn-sm text-white py-1 px-3 mb-0" onclick="showPopup('${childSnapshot.key}')">Selengkapnya</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    colDiv.innerHTML = serviceItem;
-                    entriesList.appendChild(colDiv);
+                    var entryKey = childSnapshot.key;
+                    entriesList.insertAdjacentHTML('beforeend', createEntryHTML(entry, entryKey));
                 });
+        
                 hideLoading();
-            });
+            }
+        
+            blogRef.on('value', updateEntries);
         
             function viewAllEntries() {
-                // Redirect to a page showing all entries
                 window.location.href = 'view_all_entries.html';
             }
         
             function showPopup(entryKey) {
-                var popupKegiatan = document.getElementById('popup-kegiatan');
-                var popupDetails = document.getElementById('popup-details');
                 var popup = document.getElementById('popup');
-        
                 var entryRef = firebase.database().ref('Entry/' + entryKey);
+        
                 entryRef.once('value', function(snapshot) {
                     var entry = snapshot.val();
-                    popupKegiatan.innerText = entry.kegiatan;
+                    document.getElementById('popup-kegiatan').innerText = entry.kegiatan;
         
-                    var detailsHTML = 
-                        '<img src="' + entry.content + '" class="img-fluid rounded-top w-100" alt="Gambar Kegiatan">' +
-                        
-                        '<p><strong>Jenis Kegiatan:</strong> ' + entry.jenis_kegiatan + '</p>' +
-                        '<p><strong>Tipe Kegiatan:</strong> ' + entry.tipe_kegiatan + '</p>' +
-                        '<p><strong>Tanggal Kegiatan:</strong> ' + entry.tanggal_kegiatan + '</p>' +
-                        '<p><strong>Waktu Kegiatan:</strong> ' + entry.waktu_kegiatan + '</p>' +
-                        '<p><strong>Deskripsi:</strong> ' + entry.deskripsi + '</p>' +
-                        '<p><strong>Lokasi Kegiatan:</strong> ' + entry.lokasi_kegiatan + '</p>';
-        
-                    popupDetails.innerHTML = detailsHTML;
+                    document.getElementById('popup-details').innerHTML = `
+                        <img src="${entry.content}" class="img-fluid rounded-top w-100" alt="Gambar Kegiatan">
+                        <p><strong>Jenis Kegiatan:</strong> ${entry.jenis_kegiatan}</p>
+                        <p><strong>Tipe Kegiatan:</strong> ${entry.tipe_kegiatan}</p>
+                        <p><strong>Tanggal Kegiatan:</strong> ${entry.tanggal_kegiatan}</p>
+                        <p><strong>Waktu Kegiatan:</strong> ${entry.waktu_kegiatan}</p>
+                        <p><strong>Deskripsi:</strong> ${entry.deskripsi}</p>
+                        <p><strong>Lokasi Kegiatan:</strong> ${entry.lokasi_kegiatan}</p>`;
         
                     popup.classList.add('show');
                 });
             }
         
             function hidePopup() {
-                var popup = document.getElementById('popup');
-                popup.classList.remove('show');
+                document.getElementById('popup').classList.remove('show');
             }
         </script>
         
@@ -228,6 +227,7 @@
             </div>
         </div>
         <!-- Services End -->
+        
 
 
         <!-- About Start -->
