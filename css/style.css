@@ -1,5 +1,10 @@
-
-/*** Spinner Start ***/
+.truncate-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* Limit to 5 lines */
+    -webkit-box-orient: vertical;
+}
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -263,12 +268,6 @@
 .topbar a:hover,
 .topbar a i:hover {
     color: var(--bs-secondary) !important;
-}
-.fifty-chars {
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }
 
 @media (max-width: 576px) {
