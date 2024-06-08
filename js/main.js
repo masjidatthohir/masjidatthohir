@@ -32,7 +32,7 @@ var firebaseConfig = {
 
     var date = document.createElement('p');
     date.className = 'card-text';
-    date.innerHTML = '<i class="fa fa-calendar"></i> ' + kegiatan.tanggal + ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-clock-o"></i> ' + kegiatan.waktu;
+    date.innerHTML = '<i class="fa fa-calendar"></i> ' + kegiatan.tanggal + '&nbsp;&nbsp; <i class="fa fa-clock"></i> ' + kegiatan.waktu;
 
     var desc = document.createElement('p');
     desc.className = 'card-text';
