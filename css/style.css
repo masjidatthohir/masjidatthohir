@@ -348,7 +348,10 @@
 
 @media (max-width: 991.98px) {
     .sticky-top.navbar-light {
-        position: relative;
+        position: fixed; /* Menambahkan ini agar sticky di mobile */
+        top: 0; /* Menambahkan ini agar sticky di atas */
+        width: 100%; /* Menambahkan ini agar lebar penuh */
+        z-index: 9999; /* Menambahkan ini agar di atas konten lain */
         background: var(--bs-white);
     }
 
@@ -384,7 +387,7 @@
         border-bottom: 1px solid rgba(255, 255, 255, .1);
         z-index: 999;
     }
-    
+
     .sticky-top.navbar-light {
         position: fixed;
         background: var(--bs-light) !important;
@@ -411,6 +414,7 @@
         display: none;
     }
 }
+
 /*** Carousel Hero Header Start ***/
 .header-carousel {
     position: relative; 
