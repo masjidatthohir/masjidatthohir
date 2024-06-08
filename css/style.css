@@ -1,3 +1,90 @@
+/*** KEGIATAN ***/
+.card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .card img {
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .card-text {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .read-more {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #007bff;
+    text-decoration: none;
+    border: 1px solid #007bff;
+    border-radius: 20px;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .read-more:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  /* Bottom Sheet Styles */
+  .bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(100%);
+  }
+
+  .bottom-sheet.open {
+    transform: translateY(0);
+  }
+
+  .bottom-sheet-header {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .bottom-sheet-content {
+    padding: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .close-sheet {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  /*** END KEGIATAN ***/
+
 .truncate-overflow {
     overflow: hidden;
     text-overflow: ellipsis;
