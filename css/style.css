@@ -38,14 +38,14 @@
     padding: 5px 10px;
     font-size: 12px;
     color: #fff;
-    background-color: #007bff;
+    background-color: #15B9D9;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s;
   }
   .kegiatan-item-view-button button:hover {
-    background-color: #0056b3;
+    background-color: #031b35;
   }
   /* Bottom Sheet Styles */
   .my-kegiatan-bottom-sheet {
