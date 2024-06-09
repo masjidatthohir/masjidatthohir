@@ -87,7 +87,9 @@ var firebaseConfig = {
       });
     });
   }
-
+  document.getElementById('lihatSemuaButton').addEventListener('click', function() {
+    window.location.href = 'kegiatan.html';
+  });
   readKegiatan();
 
 (function ($) {
