@@ -1,5 +1,5 @@
-//KEGIATAN
-var firebaseConfig = {
+
+  var firebaseConfig = {
     apiKey: "AIzaSyB6qerNsyshgEjQlpTn5QOW_tCfpah7fIo",
     authDomain: "itikaf-63482.firebaseapp.com",
     databaseURL: "https://itikaf-63482-default-rtdb.firebaseio.com",
@@ -10,7 +10,14 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
 
+  var maxKegiatan = 4;
+  var kegiatanCount = 0;
+
   function addKegiatanCard(kegiatanId, kegiatan, imageUrl) {
+    if (kegiatanCount >= maxKegiatan) {
+      return;
+    }
+
     var container = document.getElementById('kegiatanContainer');
     var col = document.createElement('div');
     col.className = 'col-lg-3 col-md-4 col-sm-6 col-12 mb-4';
@@ -32,7 +39,7 @@ var firebaseConfig = {
 
     var date = document.createElement('p');
     date.className = 'card-text';
-    date.innerHTML = '<i class="fa fa-calendar"></i> ' + kegiatan.tanggal + '&nbsp;&nbsp; <i class="fa fa-clock"></i> ' + kegiatan.waktu;
+    date.innerHTML = '<i class="fa fa-calendar"></i> ' + kegiatan.tanggal + ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-clock-o"></i> ' + kegiatan.waktu;
 
     var desc = document.createElement('p');
     desc.className = 'card-text';
@@ -57,6 +64,8 @@ var firebaseConfig = {
     col.addEventListener('click', function() {
       showDetailBottomSheet(kegiatan);
     });
+
+    kegiatanCount++;
   }
 
   function showDetailBottomSheet(kegiatan) {
@@ -77,6 +86,10 @@ var firebaseConfig = {
 
   function readKegiatan() {
     database.ref('kegiatan').on('child_added', function(snapshot) {
+      if (kegiatanCount >= maxKegiatan) {
+        return;
+      }
+
       var kegiatan = snapshot.val();
       var kegiatanId = snapshot.key;
       firebase.storage().ref("kegiatan").child(kegiatanId + "/image.png").getDownloadURL().then(function(imageUrl) {
@@ -87,11 +100,8 @@ var firebaseConfig = {
       });
     });
   }
-  document.getElementById('lihatSemuaButton').addEventListener('click', function() {
-    window.location.href = 'kegiatan.html';
-  });
-  readKegiatan();
 
+  readKegiatan();
 (function ($) {
     "use strict";
 
