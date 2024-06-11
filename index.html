@@ -129,7 +129,7 @@
                 <button id="lihatSemuaButton" class="btn btn-primary rounded-pill btn-sm text-white py-1 px-3 mb-5">Lihat Semua Kegiatan</button>
             </div>
             <script>document.getElementById("lihatSemuaButton").addEventListener("click", function() {
-                window.location.href = "kegiatan.html";
+                window.location.href = "Kegiatan.html";
               });</script>
           </div>  
           <div class="bottom-sheet" id="bottomSheet">
@@ -186,7 +186,7 @@ function addKegiatanCard(kegiatanId, kegiatan, imageUrl) {
 
   var date = document.createElement('p');
   date.className = 'card-text';
-  date.innerHTML = '<i class="fa fa-calendar"></i> ' + kegiatan.tanggal + '&nbsp;&nbsp; <i class="fa fa-clock"></i>' + kegiatan.waktu;
+  date.innerHTML = '<i class="fa fa-calendar"></i> ' + kegiatan.tanggal + '&nbsp;&nbsp; <i class="fa fa-clock">&nbsp;</i>' + kegiatan.waktu;
 
   var desc = document.createElement('p');
   desc.className = 'card-text';
