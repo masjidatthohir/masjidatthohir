@@ -79,10 +79,6 @@ function readKegiatan() {
   });
 }
 readKegiatan();
-
-document.getElementById("lihatSemuaButton").addEventListener("click", function() {
-  window.location.href = "kegiatan.html";
-});
 (function ($) {
     "use strict";
 
