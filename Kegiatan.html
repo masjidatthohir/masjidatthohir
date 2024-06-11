@@ -132,95 +132,14 @@
   </div>
   <div class="my-kegiatan-bottom-sheet-content" id="bottomSheetContent"></div>
 </div>
+<script>
 
+</script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
-<script>
-  var firebaseConfig = {
-    apiKey: "AIzaSyB6qerNsyshgEjQlpTn5QOW_tCfpah7fIo",
-    authDomain: "itikaf-63482.firebaseapp.com",
-    databaseURL: "https://itikaf-63482-default-rtdb.firebaseio.com",
-    projectId: "itikaf-63482",
-    storageBucket: "itikaf-63482.appspot.com",
-    messagingSenderId: "452451341170"
-  };
-  firebase.initializeApp(firebaseConfig);
-  var database = firebase.database();
-
-  function addKegiatanListItem(kegiatanId, kegiatan, imageUrl) {
-    var container = document.getElementById('kegiatanContainer');
-    var listItem = document.createElement('li');
-    listItem.className = 'my-kegiatan-list-item';
-
-    var img = document.createElement('img');
-    img.src = imageUrl;
-    img.alt = kegiatan.nama;
-
-    var details = document.createElement('div');
-    details.className = 'kegiatan-item-details';
-
-    var title = document.createElement('p');
-    title.className = 'kegiatan-item-title';
-    title.innerText = kegiatan.nama;
-
-    var dateTime = document.createElement('div');
-    dateTime.className = 'kegiatan-item-date-time';
-    dateTime.innerHTML = '<i class="fa fa-calendar"></i><p>' + kegiatan.tanggal + '</p>&nbsp;&nbsp; <i class="fa fa-clock"></i><p>' + kegiatan.waktu + '</p>';
-
-    var viewButton = document.createElement('div');
-    viewButton.className = 'kegiatan-item-view-button';
-    var button = document.createElement('button');
-    button.innerText = 'Lihat';
-    viewButton.appendChild(button);
-
-    details.appendChild(title);
-    details.appendChild(dateTime);
-
-    listItem.appendChild(img);
-    listItem.appendChild(details);
-    listItem.appendChild(viewButton);
-
-    container.appendChild(listItem);
-
-    button.addEventListener('click', function() {
-      showDetailBottomSheet(kegiatan);
-    });
-  }
-
-  function showDetailBottomSheet(kegiatan) {
-    var bottomSheetContent = document.getElementById('bottomSheetContent');
-    bottomSheetContent.innerHTML = '<img src="' + kegiatan.imageUrl + '" class="img-fluid rounded mb-3" alt="Kegiatan Image">' +
-      '<p><strong>Nama Kegiatan:</strong> ' + kegiatan.nama + '</p>' +
-      '<p><strong>Tanggal Kegiatan:</strong> ' + kegiatan.tanggal + '</p>' +
-      '<p><strong>Waktu Kegiatan:</strong> ' + kegiatan.waktu + '</p>' +
-      '<p><strong>Tempat Kegiatan:</strong> ' + kegiatan.tempat + '</p>' +
-      '<p><strong>Deskripsi:</strong> ' + kegiatan.deskripsi + '</p>';
-
-    document.getElementById('bottomSheet').classList.add('open');
-  }
-
-  document.getElementById('closeSheet').addEventListener('click', function() {
-    document.getElementById('bottomSheet').classList.remove('open');
-  });
-
-  function readKegiatan() {
-    database.ref('kegiatan').on('child_added', function(snapshot) {
-      var kegiatan = snapshot.val();
-      var kegiatanId = snapshot.key;
-      firebase.storage().ref("kegiatan").child(kegiatanId + "/image.png").getDownloadURL().then(function(imageUrl) {
-        kegiatan.imageUrl = imageUrl;
-        addKegiatanListItem(kegiatanId, kegiatan, imageUrl);
-      }).catch(function(error) {
-        console.log("Error getting image URL:", error);
-      });
-    });
-  }
-  readKegiatan();
-</script>
           
           <!-- Bottom Sheet -->
           <div class="bottom-sheet" id="bottomSheet">
