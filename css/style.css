@@ -1,3 +1,7 @@
+.carousel-inner {
+    z-index: 0;
+}
+
 .my-kegiatan-list-container {
     margin-top: 0;
     padding: 0;
