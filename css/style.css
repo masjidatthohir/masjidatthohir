@@ -16,7 +16,7 @@
   
   .prayer-timings .container {
     max-width: 7xl;
-    margin: 0 0;
+    margin: 0 auto;
     padding: 0 1.5rem;
     display: flex;
     flex-direction: column;
@@ -41,7 +41,7 @@
   
   @media (min-width: 768px) {
     .prayer-timings .container {
-      background: url('/rules-background.svg') right bottom no-repeat;
+      background: url('img/logo.jpg') right bottom no-repeat;
       background-size: 425px 255px;
     }
   }
@@ -139,7 +139,6 @@
   }
   
   .timing {
-    display: flex;
     flex-direction: column;
     min-width: 0px;
   }
@@ -151,7 +150,6 @@
   }
   
   .prayer-timings .timing .title {
-    font-weight: medium;
     font-size: 18px;
     color: white;
   }
