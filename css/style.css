@@ -16,7 +16,7 @@
   
   .prayer-timings .container {
     max-width: 7xl;
-    margin: 0 auto;
+    margin: 0 0;
     padding: 0 1.5rem;
     display: flex;
     flex-direction: column;
