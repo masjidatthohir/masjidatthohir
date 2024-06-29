@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Shalat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: rgb(83, 190, 223);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: auto;
+        }
+        .timing-info {
+            margin-bottom: 20px;
+        }
+        .timing-info span {
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .timing-info h2 {
+            font-size: 2.5em;
+            margin: 10px 0;
+        }
+        .countdown-timer {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .timing-details {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .timing {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            width: 180px;
+        }
+        .timing .title {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        .timing .time {
+            font-size: 1.5em;
+        }
+        .icon {
+            font-size: 2em;
+            margin-top: 10px;
+        }
+        @media (max-width: 800px) {
+            .timing-info h2 {
+                font-size: 2em;
+            }
+            .countdown-timer {
+                font-size: 1.2em;
+            }
+            .timing-details {
+                flex-direction: column;
+                align-items: center;
+            }
+            .timing {
+                width: 200px;
+                max-width: 100%;
+                height: fit-content;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="prayer-timings">
+        <div class="container">
+            <div class="timing-info">
+                <span>Jadwal Shalat Selanjutnya</span>
+                <h2 id="next-prayer-name">Shalat Maghrib</h2>
+                <p>akan dimulai dalam
+                    <span id="countdown-timer" class="countdown-timer">00 jam : 00 menit : 00 detik</span>
+                    lagi
+                </p>
+            </div>
+            <div class="timing-details">
+                <div class="timing">
+                    <p class="title">Shalat Shubuh</p>
+                    <p id="subuh-time" class="time">00.00 WIB</p>
+                    <i class="icon fa-prayer"></i>
+                </div>
+                <div class="timing">
+                    <p class="title">Shalat Dzuhur</p>
+                    <p id="dzuhur-time" class="time">00.00 WIB</p>
+                    <i class="icon fa-prayer"></i>
+                </div>
+                <div class="timing">
+                    <p class="title">Shalat Ashar</p>
+                    <p id="ashar-time" class="time">00.00 WIB</p>
+                    <i class="icon fa-prayer"></i>
+                </div>
+                <div class="timing">
+                    <p class="title">Shalat Maghrib</p>
+                    <p id="maghrib-time" class="time">00.00 WIB</p>
+                    <i class="icon fa-prayer"></i>
+                </div>
+                <div class="timing">
+                    <p class="title">Shalat Isya</p>
+                    <p id="isya-time" class="time">00.00 WIB</p>
+                    <i class="icon fa-prayer"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const prayerTimeApiUrl = "https://api.myquran.com/v2/sholat/jadwal/1225/";
+
+            function fetchPrayerTimes() {
+                const date = new Date().toISOString().split('T')[0];
+                fetch(`${prayerTimeApiUrl}${date}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const prayerTimes = data.data.jadwal;
+                        document.getElementById('subuh-time').textContent = prayerTimes.subuh;
+                        document.getElementById('dzuhur-time').textContent = prayerTimes.dzuhur;
+                        document.getElementById('ashar-time').textContent = prayerTimes.ashar;
+                        document.getElementById('maghrib-time').textContent = prayerTimes.maghrib;
+                        document.getElementById('isya-time').textContent = prayerTimes.isya;
+                        startCountdown(prayerTimes);
+                    })
+                    .catch(error => console.error('Error fetching prayer times:', error));
+            }
+
+            function startCountdown(prayerTimes) {
+                function getNextPrayerTime() {
+                    const now = new Date();
+                    const times = [
+                        { name: 'shubuh', time: prayerTimes.subuh },
+                        { name: 'dzuhur', time: prayerTimes.dzuhur },
+                        { name: 'ashar', time: prayerTimes.ashar },
+                        { name: 'maghrib', time: prayerTimes.maghrib },
+                        { name: 'isya', time: prayerTimes.isya }
+                    ];
+
+                    for (const prayer of times) {
+                        const [hour, minute] = prayer.time.split(':');
+                        const prayerTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute);
+                        if (prayerTime > now) {
+                            document.getElementById('next-prayer-name').textContent = `Shalat ${prayer.name.charAt(0).toUpperCase() + prayer.name.slice(1)}`;
+                            return prayerTime;
+                        }
+                    }
+                    const [hour, minute] = times[0].time.split(':');
+                    document.getElementById('next-prayer-name').textContent = `Shalat ${times[0].name.charAt(0).toUpperCase() + times[0].name.slice(1)}`;
+                    return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, hour, minute);
+                }
+
+                function updateCountdown() {
+                    const now = new Date();
+                    const nextPrayerTime = getNextPrayerTime();
+                    const timeDifference = nextPrayerTime - now;
+                    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                    document.getElementById('countdown-timer').textContent =
+                        `${hours.toString().padStart(2, '0')} jam : ${minutes.toString().padStart(2, '0')} menit : ${seconds.toString().padStart(2, '0')} detik`;
+                }
+
+                updateCountdown();
+                setInterval(updateCountdown, 1000);
+            }
+
+            fetchPrayerTimes();
+        });
+    </script>
+</body>
+
+</html>
