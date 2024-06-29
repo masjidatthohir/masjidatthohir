@@ -90,12 +90,7 @@
     <section class="prayer-timings">
         <div class="container">
             <div class="timing-info">
-                <span>Jadwal Shalat Selanjutnya</span>
-                <h2 id="next-prayer-name">Shalat Maghrib</h2>
-                <p>akan dimulai dalam
-                    <span id="countdown-timer" class="countdown-timer">00 jam : 00 menit : 00 detik</span>
-                    lagi
-                </p>
+                <h2>Jadwal Shalat Wilayah Depok</h2>
             </div>
             <div class="timing-details">
                 <div class="timing">
@@ -146,45 +141,7 @@
                     .catch(error => console.error('Error fetching prayer times:', error));
             }
 
-            function startCountdown(prayerTimes) {
-                function getNextPrayerTime() {
-                    const now = new Date();
-                    const times = [
-                        { name: 'shubuh', time: prayerTimes.subuh },
-                        { name: 'dzuhur', time: prayerTimes.dzuhur },
-                        { name: 'ashar', time: prayerTimes.ashar },
-                        { name: 'maghrib', time: prayerTimes.maghrib },
-                        { name: 'isya', time: prayerTimes.isya }
-                    ];
-
-                    for (const prayer of times) {
-                        const [hour, minute] = prayer.time.split(':');
-                        const prayerTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute);
-                        if (prayerTime > now) {
-                            document.getElementById('next-prayer-name').textContent = `Shalat ${prayer.name.charAt(0).toUpperCase() + prayer.name.slice(1)}`;
-                            return prayerTime;
-                        }
-                    }
-                    const [hour, minute] = times[0].time.split(':');
-                    document.getElementById('next-prayer-name').textContent = `Shalat ${times[0].name.charAt(0).toUpperCase() + times[0].name.slice(1)}`;
-                    return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, hour, minute);
-                }
-
-                function updateCountdown() {
-                    const now = new Date();
-                    const nextPrayerTime = getNextPrayerTime();
-                    const timeDifference = nextPrayerTime - now;
-                    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-                    document.getElementById('countdown-timer').textContent =
-                        `${hours.toString().padStart(2, '0')} jam : ${minutes.toString().padStart(2, '0')} menit : ${seconds.toString().padStart(2, '0')} detik`;
-                }
-
-                updateCountdown();
-                setInterval(updateCountdown, 1000);
-            }
+            
 
             fetchPrayerTimes();
         });
