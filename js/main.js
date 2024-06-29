@@ -1,4 +1,3 @@
-
 var firebaseConfig = {
   apiKey: "AIzaSyB6qerNsyshgEjQlpTn5QOW_tCfpah7fIo",
   authDomain: "itikaf-63482.firebaseapp.com",
@@ -7,6 +6,7 @@ var firebaseConfig = {
   storageBucket: "itikaf-63482.appspot.com",
   messagingSenderId: "452451341170"
 };
+
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
@@ -73,11 +73,31 @@ function readKegiatan() {
     firebase.storage().ref("kegiatan").child(kegiatanId + "/image.png").getDownloadURL().then(function(imageUrl) {
       kegiatan.imageUrl = imageUrl;
       addKegiatanListItem(kegiatanId, kegiatan, imageUrl);
+      checkAndDeleteOldKegiatan(kegiatanId, kegiatan.tanggal);
     }).catch(function(error) {
       console.log("Error getting image URL:", error);
     });
   });
 }
+
+function checkAndDeleteOldKegiatan(kegiatanId, tanggal) {
+  var today = new Date();
+  today.setHours(0, 0, 0, 0); // Set to start of day
+  var kegiatanDate = new Date(tanggal.split('/').reverse().join('-')); // Converts DD/MM/YYYY to YYYY-MM-DD
+  kegiatanDate.setHours(0, 0, 0, 0); // Set to start of day
+
+  // Delete if the kegiatanDate is strictly less than today's date
+  if (kegiatanDate < today) {
+    database.ref('kegiatan/' + kegiatanId).remove()
+      .then(function() {
+        console.log("Kegiatan with ID " + kegiatanId + " has been deleted.");
+      })
+      .catch(function(error) {
+        console.log("Error deleting kegiatan:", error);
+      });
+  }
+}
+
 readKegiatan();
 (function ($) {
     "use strict";
