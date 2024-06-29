@@ -8,115 +8,90 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: rgb(83, 190, 223);
-            color: #fff;
+            background-color: #36e3f0;
             margin: 0;
-            padding: 0;
-            display: flex;
+            padding: 15px;
+            height: 100vh; /* Set tinggi halaman sesuai tinggi viewport */
+            display: flex; /* Gunakan flexbox untuk memusatkan secara vertikal dan horizontal */
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .container {
+            flex-direction: column; /* Tampilkan elemen secara vertikal */
             text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            width: 90%;
-            max-width: 964px;
-        }
-
-        .timing-info {
-            margin-bottom: 20px;
         }
 
         .timing-info h2 {
-            font-size: 2em;
-            margin: 10px 0;
+            color: #333333;
+            font-size: 24px;
+            margin-top: 20px; /* Jarak dari atas */
+            margin-bottom: 20px; /* Jarak dari bawah */
         }
 
         .timing-details {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
+            max-width: 800px;
+            width: 100%; /* Sesuaikan lebar dengan konten */
+            display: grid;
+           
             gap: 10px;
         }
 
         .timing {
-            background: rgba(0, 0, 0, 0.2);
+            background-color: #f0f0f0;
             padding: 15px;
-            border-radius: 5px;
-            width: 180px;
-            max-width: 100%;
+            border-radius: 8px;
+            text-align: center;
         }
 
-        .timing .title {
-            font-size: 1.2em;
-            margin-bottom: 5px;
+        .title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
         }
 
-        .timing .time {
-            font-size: 1.5em;
+        .time {
+            font-size: 18px;
+            margin-top: 0;
+            color: #777;
         }
 
         .icon {
-            font-size: 2em;
-            margin-top: 10px;
-        }
-
-        @media (max-width: 800px) {
-            .timing-info h2 {
-                font-size: 1.5em;
-            }
-
-            .timing-details {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .timing {
-                width: 100%;
-                max-width: 300px;
-            }
+            font-size: 24px;
+            color: #333;
         }
     </style>
+
+
 </head>
 
 <body>
     <section class="prayer-timings">
-        <div class="container">
-            <div class="timing-info">
-                <h2>Jadwal Shalat Wilayah Depok</h2>
+        <div class="timing-info">
+            <h2>Jadwal Shalat Wilayah Depok</h2>
+        </div>
+        <div class="timing-details">
+            <div class="timing">
+                <p class="title">Shalat Shubuh</p>
+                <p id="subuh-time" class="time">00.00 WIB</p>
+                <i class="icon fa-prayer"></i>
             </div>
-            <div class="timing-details">
-                <div class="timing">
-                    <p class="title">Shalat Shubuh</p>
-                    <p id="subuh-time" class="time">00.00 WIB</p>
-                    <i class="icon fa-prayer"></i>
-                </div>
-                <div class="timing">
-                    <p class="title">Shalat Dzuhur</p>
-                    <p id="dzuhur-time" class="time">00.00 WIB</p>
-                    <i class="icon fa-prayer"></i>
-                </div>
-                <div class="timing">
-                    <p class="title">Shalat Ashar</p>
-                    <p id="ashar-time" class="time">00.00 WIB</p>
-                    <i class="icon fa-prayer"></i>
-                </div>
-                <div class="timing">
-                    <p class="title">Shalat Maghrib</p>
-                    <p id="maghrib-time" class="time">00.00 WIB</p>
-                    <i class="icon fa-prayer"></i>
-                </div>
-                <div class="timing">
-                    <p class="title">Shalat Isya</p>
-                    <p id="isya-time" class="time">00.00 WIB</p>
-                    <i class="icon fa-prayer"></i>
-                </div>
+            <div class="timing">
+                <p class="title">Shalat Dzuhur</p>
+                <p id="dzuhur-time" class="time">00.00 WIB</p>
+                <i class="icon fa-prayer"></i>
+            </div>
+            <div class="timing">
+                <p class="title">Shalat Ashar</p>
+                <p id="ashar-time" class="time">00.00 WIB</p>
+                <i class="icon fa-prayer"></i>
+            </div>
+            <div class="timing">
+                <p class="title">Shalat Maghrib</p>
+                <p id="maghrib-time" class="time">00.00 WIB</p>
+                <i class="icon fa-prayer"></i>
+            </div>
+            <div class="timing">
+                <p class="title">Shalat Isya</p>
+                <p id="isya-time" class="time">00.00 WIB</p>
+                <i class="icon fa-prayer"></i>
             </div>
         </div>
     </section>
