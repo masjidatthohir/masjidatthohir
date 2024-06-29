@@ -1,4 +1,27 @@
             
+        .custom-button {
+            padding: 9px 16px;
+            display: flex;
+            align-items: center;
+            border-radius: 12px;
+            border: 1px solid #15B9D9;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #ffffff;
+            color: #15B9D9;
+            text-align: center;
+            font-size: 14px;
+            line-height: 18px;
+            width: 100%;
+            margin: 10px;
+        }
+        .button-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
 .video-container {
     overflow: hidden;
   }
@@ -172,9 +195,10 @@
     padding:10px 10px 10px 10px;
     background-color:#ffffff;
     border-radius: 10px;
-    border: 1px solid rgb(158, 158, 158);
+    border: 0px solid rgb(158, 158, 158);
     font-size:120%;
     font-weight:400;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
   }
 
 .carousel-inner {
@@ -226,6 +250,7 @@
             align-items: center;
             margin-left: 8px;
             margin-right: 8px;
+            color: #2c2c2c;
           }
         
           .my-kegiatan-list-item img {
@@ -271,60 +296,62 @@
             background-color: #031b35;
           }
         
-          /* Bottom Sheet Styles */
-          .my-kegiatan-bottom-sheet {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: white;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-            box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease-in-out;
-            transform: translateY(100%);
-          }
-        
-          .my-kegiatan-bottom-sheet.open {
-            transform: translateY(0);
-          }
-        
-          .my-kegiatan-bottom-sheet-header {
-            padding: 10px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-            position: relative;
-          }
-        
-          .my-kegiatan-bottom-sheet-content {
-            padding: 20px;
-            max-height: 70vh;
-            overflow-y: auto;
-          }
-        
-          .close-kegiatan-sheet {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            width: 30px;
-            height: 30px;
-            background-color: #15B9D9;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px; color: #fff;
-            cursor: pointer;
-            font-size: 20px;
-          }
-        
-          .close-kegiatan-sheet:hover {
-            background-color: #000000;
-          }
-        
-          .lihat-semua {
-            text-align: center;
-            margin-top: 20px;
-          }
-/*** KEGIATAN ***/
+/* Bottom Sheet Styles */
+.my-kegiatan-bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(100%);
+    color: #080808;
+  }
+  
+  .my-kegiatan-bottom-sheet.open {
+    transform: translateY(0);
+  }
+  
+  .my-kegiatan-bottom-sheet-header {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+  }
+  
+  .my-kegiatan-bottom-sheet-content {
+    padding: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  
+  .close-kegiatan-sheet {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    background-color: #15B9D9;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .close-kegiatan-sheet:hover {
+    background-color: #000000;
+  }
+  
+  .lihat-semua {
+    text-align: center;
+  }
+  
+  /*** KEGIATAN ***/  
 .card {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -408,9 +435,20 @@
   }
 
   .close-sheet {
-    float: right;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    background-color: #15B9D9;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px; color: #fff;
     cursor: pointer;
     font-size: 20px;
+  }
+  .close-sheet:hover {
+    background-color: #000000;
   }
   /*** END KEGIATAN ***/
 
