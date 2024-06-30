@@ -1,27 +1,30 @@
             
-        .custom-button {
-            padding: 9px 16px;
-            display: flex;
-            align-items: center;
-            border-radius: 12px;
-            border: 1px solid #15B9D9;
-            font-weight: bold;
-            cursor: pointer;
-            background-color: #ffffff;
-            color: #15B9D9;
-            text-align: center;
-            font-size: 14px;
-            line-height: 18px;
-            width: 100%;
-            margin: 10px;
-        }
-        .button-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-        }
+.tab {
+    color: #fff;
+}
+.custom-button {
+    padding: 9px 16px;
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    border: 1px solid #15B9D9;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #ffffff;
+    color: #15B9D9;
+    text-align: center;
+    font-size: 14px;
+    line-height: 18px;
+     width: 100%;
+    margin: 10px;
+}
+.button-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
 .video-container {
     overflow: hidden;
   }
