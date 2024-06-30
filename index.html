@@ -134,13 +134,17 @@
             <h2 style="text-align:center; margin-top:50px; margin-bottom:20px;">Kegiatan Masjid</h2><br>
             <div class="row" id="kegiatanContainer"></div>
           </div>
-            <div class="lihat-semua">
-                <button id="lihatSemuaButton" class="btn btn-primary btn-sm text-white py-1 px-5 mb-5">Lihat Semua Kegiatan<img class="tab" src="img/open-tab.svg" alt="Ikon buka tab baru" aria-hidden="true" width="20" height="20"></button>
-            </div>
-            <script>document.getElementById("lihatSemuaButton").addEventListener("click", function() {
+          <div class="lihat-semua">
+            <button id="lihatSemuaButton" class="custom-btn">
+                <span class="text">Lihat Semua Kegiatan</span>
+                <img class="icon" src="img/open-tab.svg" alt="Ikon buka tab baru" aria-hidden="true">
+            </button>
+        </div>
+        <script>
+            document.getElementById("lihatSemuaButton").addEventListener("click", function() {
                 window.location.href = "Kegiatan";
-              });</script>
-            </div>  
+            });
+        </script>
           <div class="bottom-sheet" id="bottomSheet">
             <div class="bottom-sheet-header">
               <span id="closeSheet" class="close-sheet">&times;</span>

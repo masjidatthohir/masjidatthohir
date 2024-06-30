@@ -351,8 +351,43 @@
   }
   
   .lihat-semua {
-    text-align: center;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #15B9D9;
+    color: white;
+    border: 1px solid #15B9D9;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s, color 0.3s, filter 0.3s;
+}
+
+.custom-btn .text {
+    margin-right: 10px;
+}
+
+.custom-btn .icon {
+    margin-left: 20px;
+    filter: invert(0%); /* Mengubah ikon menjadi putih */
+}
+
+.custom-btn:hover {
+    background-color: white;
+    color: #15B9D9;
+}
+
+.custom-btn:hover .icon {
+    filter: invert(50%) sepia(100%) saturate(10000%) hue-rotate(190deg); /* Mengubah ikon menjadi #15B9D9 */
+}
   
   /*** KEGIATAN ***/  
 .card {
