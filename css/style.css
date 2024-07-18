@@ -546,13 +546,7 @@ h1 {
   }
   /*** END KEGIATAN ***/
 
-.truncate-overflow {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 5; /* Limit to 5 lines */
-    -webkit-box-orient: vertical;
-}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
