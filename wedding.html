@@ -92,13 +92,59 @@
             </div>
             <!-- Carousel End -->
         <br>
-        <br>
-        <div class="col-lg-5 wow fadeInLeft" data-wow-delay="0.2s">
-            <div class="wedding-img pb-2 ps-2">
-                <img src="img/1.png" class="img-fluid rounded w-100" style="object-fit: cover;" alt="Image"><br>
-                <img src="img/2.png" class="img-fluid rounded w-100" style="object-fit: cover;" alt="Image">
-            </div>
+        <h2 style="text-align:center; margin-top:10px; margin-bottom:20px;">Brosur Wedding</h2>
+        
+        <style>
+            .img-fluid {
+                cursor: pointer;
+                transition: transform 0.3s;
+            }
+    
+            .fullscreen-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0s, opacity 0.3s linear;
+            }
+    
+            .fullscreen-overlay img {
+                max-width: 90%;
+                max-height: 90%;
+            }
+    
+            .fullscreen-overlay.visible {
+                visibility: visible;
+                opacity: 1;
+            }
+        </style>
+        <img src="img/brosur1.jpg" class="img-fluid w-100" style="object-fit: cover; margin-bottom:20px;" alt="Image" onclick="openFullscreen(this)">
+        <img src="img/brosur2.jpg" class="img-fluid w-100" style="object-fit: cover;" alt="Image" onclick="openFullscreen(this)">
+    
+        <div class="fullscreen-overlay" id="fullscreenOverlay" onclick="closeFullscreen()">
+            <img id="fullscreenImage" src="" alt="Fullscreen Image">
         </div>
+    
+        <script>
+            function openFullscreen(image) {
+                const overlay = document.getElementById('fullscreenOverlay');
+                const fullscreenImage = document.getElementById('fullscreenImage');
+                fullscreenImage.src = image.src;
+                overlay.classList.add('visible');
+            }
+    
+            function closeFullscreen() {
+                const overlay = document.getElementById('fullscreenOverlay');
+                overlay.classList.remove('visible');
+            }
+        </script>
 <div class="judul">Album Wedding</div>
 <div class="linear">
 <ul>
@@ -128,7 +174,7 @@
     text-align: left;
     margin-bottom:5px;
     width:100%;
-    border: 1px solid rgb(158, 158, 158);
+    border: 1px solid rgb(255, 255, 255);
     padding:15px;
 }
  .linear {
@@ -136,7 +182,6 @@
    padding:10px 10px 10px 10px;
    background-color:#ffffff;
    border-radius: 10px;
-   border: 1px solid rgb(158, 158, 158);
    font-size:120%;
    font-weight:400;
  }
