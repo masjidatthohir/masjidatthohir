@@ -40,10 +40,6 @@ var firebaseConfig = {
     date.className = 'card-text';
     date.innerHTML = '<i class="fa fa-calendar"></i> ' + kegiatan.tanggal + '&nbsp;&nbsp; <i class="fa fa-clock">&nbsp;</i>' + kegiatan.waktu;
   
-    var desc = document.createElement('p');
-    desc.className = 'card-text';
-    desc.innerText = kegiatan.deskripsi;
-  
     var readMore = document.createElement('a');
     readMore.className = 'read-more';
     readMore.innerText = 'Lihat Kegiatan';
@@ -55,7 +51,6 @@ var firebaseConfig = {
   
     cardBody.appendChild(title);
     cardBody.appendChild(date);
-    cardBody.appendChild(desc);
     cardBody.appendChild(readMore);
   
     card.appendChild(cardImg);
