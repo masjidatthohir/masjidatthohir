@@ -1,5 +1,7 @@
 
-
+.fullscreen-overlay {
+    z-index: 9999;
+}
 
 .custom-button {
     padding: 9px 16px;
